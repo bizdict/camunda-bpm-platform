@@ -96,9 +96,6 @@ import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 
-/**
- * Uses Wiremock so should be run as part of {@link TelemetrySuiteTest}.
- */
 public class TelemetryReporterTest {
 
   protected static final String TELEMETRY_ENDPOINT = "http://localhost:8084/pings";
@@ -175,6 +172,8 @@ public class TelemetryReporterTest {
       managementService.toggleTelemetry(false);
     }
 
+    managementService.deleteTaskMetrics(null);
+
     clearMetrics();
 
     if (standaloneReporter != null) {
@@ -197,7 +196,7 @@ public class TelemetryReporterTest {
     WireMock.resetAllRequests();
 
     configuration.setTelemetryData(defaultTelemetryData);
-
+    configuration.setTaskMetricsEnabled(false);
   }
 
   protected void clearMetrics() {
@@ -779,11 +778,11 @@ public class TelemetryReporterTest {
   }
 
   @Test
-  @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_ACTIVITY)
   @Deployment(resources = "org/camunda/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
   public void shouldSendTelemetryWithTaskWorkersMetrics() {
     // given
     managementService.toggleTelemetry(true);
+    configuration.setTaskMetricsEnabled(true);
 
     ClockUtil.setCurrentTime(addHour(ClockUtil.getCurrentTime()));
 
