@@ -54,9 +54,7 @@ public class TaskMetricsTest {
       .done();
 
   @ClassRule
-  public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(config -> {
-    config.setTaskMetricsEnabled(true);
-  });
+  public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(config -> config.setTaskMetricsEnabled(true));
   @Rule
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   @Rule
