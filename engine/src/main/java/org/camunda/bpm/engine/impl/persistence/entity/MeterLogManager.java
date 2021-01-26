@@ -41,7 +41,6 @@ public class MeterLogManager extends AbstractManager {
   public static final String SELECT_METER_SUM = "selectMeterLogSum";
   public static final String DELETE_ALL_METER = "deleteAllMeterLogEntries";
   public static final String DELETE_ALL_METER_BY_TIMESTAMP_AND_REPORTER = "deleteMeterLogEntriesByTimestampAndReporter";
-  public static final String DELETE_ALL_TASK_METER = "deleteAllTaskMeterLogEntries";
   public static final String DELETE_ALL_TASK_METER_BY_TIMESTAMP = "deleteTaskMeterLogEntriesByTimestamp";
 
   public void insert(MeterLogEntity meterLogEntity) {
@@ -137,11 +136,11 @@ public class MeterLogManager extends AbstractManager {
   }
 
   public void deleteAllTaskMetrics() {
-    getDbEntityManager().delete(MeterLogEntity.class, DELETE_ALL_TASK_METER, null);
+    getDbEntityManager().delete(TaskMeterLogEntity.class, DELETE_ALL_TASK_METER_BY_TIMESTAMP, Collections.emptyMap());
   }
 
   public void deleteTaskMetricsByTimestamp(Date timestamp) {
     Map<String, Object> parameters = Collections.singletonMap("timestamp", timestamp);
-    getDbEntityManager().delete(MeterLogEntity.class, DELETE_ALL_TASK_METER_BY_TIMESTAMP, parameters);
+    getDbEntityManager().delete(TaskMeterLogEntity.class, DELETE_ALL_TASK_METER_BY_TIMESTAMP, parameters);
   }
 }

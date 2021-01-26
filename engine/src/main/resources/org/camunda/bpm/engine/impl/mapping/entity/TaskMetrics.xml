@@ -34,10 +34,6 @@
 
   <!-- TASK METER BULK DELTE -->
 
-  <delete id="deleteAllTaskMeterLogEntries">
-    delete from ${prefix}ACT_RU_TASK_METER_LOG
-  </delete>
-
   <delete id="deleteTaskMeterLogEntriesByTimestamp" parameterType="java.util.Map">
     delete from ${prefix}ACT_RU_TASK_METER_LOG
     <where>
